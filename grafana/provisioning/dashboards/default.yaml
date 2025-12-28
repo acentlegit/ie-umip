@@ -1,0 +1,7 @@
+apiVersion: 1
+providers:
+  - name: 'AllMerge Dashboards'
+    folder: 'AllMerge'
+    type: file
+    options:
+      path: /var/lib/grafana/dashboards

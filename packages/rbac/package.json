@@ -1,0 +1,7 @@
+
+{
+  "name": "@ie-umip/rbac",
+  "version": "0.1.0",
+  "main": "src/withPermission.tsx",
+  "private": true
+}

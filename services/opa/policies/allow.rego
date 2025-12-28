@@ -1,0 +1,2 @@
+package auth
+allow { true }

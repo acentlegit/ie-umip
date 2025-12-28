@@ -1,0 +1,73 @@
+version: "3.9"
+
+services:
+  pharmacy-ui:
+    build: ./apps/pharmacy-ui
+    container_name: ie-umip-pharmacy-ui
+    depends_on:
+      - intent-gateway
+    environment:
+      VITE_API_URL: http://intent-gateway:8080
+    ports:
+      - "3003:3000"
+    restart: unless-stopped
+  mongo:
+    image: mongo:7
+    container_name: ie-umip-mongo
+    ports:
+      - "27017:27017"
+    restart: unless-stopped
+    networks: [umip-net]
+
+  redis:
+    image: redis:7
+    container_name: ie-umip-redis
+    command: ["redis-server", "--appendonly", "yes"]
+    ports:
+      - "6379:6379"
+    restart: unless-stopped
+    networks: [umip-net]
+
+  intent-gateway:
+    build: ./services/intent-gateway
+    container_name: ie-umip-intent-gateway
+    depends_on:
+      - mongo
+      - redis
+    environment:
+      PORT: 8080
+      REDIS_URL: redis://redis:6379
+      MONGO_URL: mongodb://mongo:27017/umip
+    ports:
+      - "8080:8080"
+    restart: unless-stopped
+    networks: [umip-net]
+
+  doctor-ui:
+    build: ./apps/doctor-ui
+    container_name: ie-umip-doctor-ui
+    depends_on:
+      - intent-gateway
+    environment:
+      VITE_API_URL: http://intent-gateway:8080
+    ports:
+      - "3001:3000"
+    restart: unless-stopped
+    networks: [umip-net]
+
+  patient-ui:
+    build: ./apps/patient-ui
+    container_name: ie-umip-patient-ui
+    depends_on:
+      - intent-gateway
+    environment:
+      VITE_API_URL: http://intent-gateway:8080
+    ports:
+      - "3002:3000"
+    restart: unless-stopped
+    networks: [umip-net]
+
+  
+
+  umip-net:
+    driver: bridge
