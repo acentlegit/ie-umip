@@ -1,0 +1,7 @@
+{
+  "title": "Pharmacy Overview",
+  "panels": [
+    { "type": "stat", "title": "Claims Today" },
+    { "type": "stat", "title": "Controlled Substances" }
+  ]
+}

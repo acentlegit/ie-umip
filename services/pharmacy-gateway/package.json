@@ -1,0 +1,13 @@
+{
+  "name": "pharmacy-gateway",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "node src/index.js"
+  },
+  "dependencies": {
+    "express": "^4.19.2",
+    "mongodb": "^6.5.0",
+    "ioredis": "^5.4.1"
+  }
+}
